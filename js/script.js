@@ -7,28 +7,51 @@
         return !isNaN(parseFloat(n)) && isFinite(n);   // isFinite булиевый оператор проверять счисло бесконечное или нет
     }
 
-    function enteringNumber(text){
-        let answer = prompt(text),
-        thoughtNumber = 55;
+    function randomNumber() {
+        return Math.round(Math.random()*100);
+    }
 
+    function enteringNumber(text, kol, randomNom) {
+        let answer = prompt(text),
+            thoughtNumber = randomNom;
+            console.log(thoughtNumber);
+            
         if (answer == null) {
             return 'Игра окончена';    
         }
 
         if (!isNumbers(answer)) enteringNumber('Введи число!');
 
+        kol--;
+
         function collation(a) {
-            if (a > thoughtNumber ) {alert('Загаданное число меньше');
-                enteredValue = enteringNumber('введите новый вариант');
+            
+            if (kol <= 0)  {
+                let start2 =  confirm('Попытки закончились, хотите сыграть еще?');
+                if (start2) {
+                    enteringNumber('Введи число от 0 до 100', 10, randomNumber());
+                }  else {
+                    return 'Удачи!!!';
+                }
+            }
+
+            if (a > thoughtNumber ) {alert('Загаданное число меньше, осталось попыток...' + kol);
+                enteredValue = enteringNumber('введите новый вариант', kol, thoughtNumber);
                 }
 
-            if (a < thoughtNumber) {alert('Загаданное число больше');
-                enteredValue = enteringNumber('введите новый вариант');
+            if (a < thoughtNumber) {alert('Загаданное число больше, осталось попыток...' + kol);
+                enteredValue = enteringNumber('введите новый вариант', kol, thoughtNumber);
                 }
 
-            if (a == thoughtNumber) {return 'Поздравляю, Вы угадали!!!';
-                }
-        }
+            if (a == thoughtNumber) {
+                let start3 =  confirm('Поздравляю, Вы угадали!!! Хотели бы сыграть еще?');
+                
+                if (start3) {
+                    enteringNumber('Введи число от 0 до 100', 10, randomNumber());
+                } 
+            }
+            return 'Удачи!!!';
+        }    
 
         return collation(answer);
     }
@@ -37,8 +60,7 @@
 
     if (start) {
 
-    
-        enteredValue =  enteringNumber('Введи число от 0 до 100');
+        enteredValue =  enteringNumber('Введи число от 0 до 100', 10, randomNumber());
         
         alert(enteredValue);
         
