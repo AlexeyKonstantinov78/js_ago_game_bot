@@ -1,49 +1,47 @@
-'use strict';
+    'use strict';
 
-let start,
-    answer,
-    thoughtNumber = 55,
-    enteredValue;
+    let start,
+        enteredValue;
 
     function isNumbers(n) { 
         return !isNaN(parseFloat(n)) && isFinite(n);   // isFinite булиевый оператор проверять счисло бесконечное или нет
     }
 
     function enteringNumber(text){
-        do{
-            answer = prompt(text);
-            if (answer === null) {
-                alert('Игра окончена');
-                break;
-            }
-        }
-        while (!isNumbers(answer));
+        let answer = prompt(text),
+        thoughtNumber = 55;
 
-        return answer;
+        if (answer == null) {
+            return 'Игра окончена';    
+        }
+
+        if (!isNumbers(answer)) enteringNumber('Введи число!');
+
+        function collation(a) {
+            if (a > thoughtNumber ) {alert('Загаданное число меньше');
+                enteredValue = enteringNumber('введите новый вариант');
+                }
+
+            if (a < thoughtNumber) {alert('Загаданное число больше');
+                enteredValue = enteringNumber('введите новый вариант');
+                }
+
+            if (a == thoughtNumber) {return 'Поздравляю, Вы угадали!!!';
+                }
+        }
+
+        return collation(answer);
     }
 
-start = confirm('Игра угадай число от 0 до 100. Готов играть?');
+    start = confirm('Игра угадай число от 0 до 100. Готов играть?');
 
-if (start) {
+    if (start) {
+
     
-    enteredValue =  enteringNumber('Введи число от 0 до 100');
-    
-    for ( ; ; ) {
-        if (enteredValue > thoughtNumber) {alert('Загаданное число меньше');
-        enteredValue = enteringNumber('введите новый вариант');
-        }
-
-        if (enteredValue < thoughtNumber) {alert('Загаданное число больше');
-        enteredValue = enteringNumber('введите новый вариант');
-        }
-
-        if (enteredValue == thoughtNumber) {alert('Поздравляю, Вы угадали!!!');
-            break;
-            }
-         console.log(typeof enteredValue, enteredValue);
-         console.log(typeof thoughtNumber, thoughtNumber);
+        enteredValue =  enteringNumber('Введи число от 0 до 100');
+        
+        alert(enteredValue);
+        
+    } else {
+        alert('Очень жаль игра закончилась не начавшись. Удачи!!!');
     }
-
-} else {
-    alert('Очень жаль игра закончилась не начавшись. Удачи!!!');
-}
